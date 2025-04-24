@@ -1,0 +1,8 @@
+# Ejemplo 1: Martingala con capital infinito en número específico
+python simulador.py -c 1000 -n 5 -e 17 -s m -a i
+
+# Ejemplo 2: Fibonacci con capital finito (apuestas a color)
+python simulador.py -c 500 -n 10 -s f -a f --capital_inicial 2000
+
+# Ejemplo 3: Estrategia personalizada
+python simulador.py -c 2000 -n 3 -s o -a f --capital_inicial 1000
