@@ -44,16 +44,20 @@ def simular_ruleta(n_tiradas, n_corridas, numero_elegido=None, estrategia='m', c
         fib_index = 0
         
         for i in range(1, n_tiradas+1):
-            # Simular apuesta según estrategia
-            if capital_tipo == 'f' and capital < apuesta_actual:
-                apuesta_actual = max(capital, 0)  # No apostar más del capital disponible
             
-            # Determinar si ganamos (para un solo número o cualquier apuesta)
+            if capital_tipo == 'f' and apuesta_actual > capital:
+                apuesta_actual = capital  # No apostar más del capital disponible
+            
+            if capital <= 0:
+                break  
+
+            
             gano = numero_elegido is not None and tiradas[i-1] == numero_elegido
+
             
             # Actualizar capital según resultado
             if gano:
-                capital += apuesta_actual * 35  # Pago 35:1 para apuesta a número
+                capital += apuesta_actual * 35  
                 victorias_consecutivas += 1
                 conteo_victorias += 1
             else:
