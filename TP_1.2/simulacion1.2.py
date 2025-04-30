@@ -29,7 +29,6 @@ def simular_ruleta(n_tiradas, n_corridas, numero_elegido=None, estrategia='m', c
 
         # Simular tiradas
         tiradas = [random.choice(numeros_ruleta) for _ in range(n_tiradas)]
-        print(f"Tiradas: {tiradas}")  # Debug: Mostrar tiradas generadas
 
         # Estadísticas acumulativas
         fr_acum = []  # Frecuencia relativa acumulada del número elegido
@@ -143,7 +142,6 @@ def graficar_resultados(resultados, n_tiradas, n_corridas, numero_elegido, estra
         plt.figure(figsize=figsize)
         y_vals_freq = resultados['frecuencias'][0]
         plt.plot(x_vals[:len(y_vals_freq)], y_vals_freq, label='Frecuencia relativa obtenida', color='red')
-        # plt.ylim(0, max(y_vals_capital) * 1.1)
         plt.axhline(y=prob_teorica, color='black', linestyle='--', label='Probabilidad teórica')
         plt.title(f'Frecuencia relativa del número {numero_elegido} (1 corrida)')
         plt.xlabel('Número de tiradas')
@@ -169,11 +167,10 @@ def graficar_resultados(resultados, n_tiradas, n_corridas, numero_elegido, estra
     if len(capitales_finales) > 0:
         plt.figure(figsize=figsize)
         plt.hist(capitales_finales, bins=20, color='green', alpha=0.7)
-        plt.ylim(0, max(np.histogram(capitales_finales, bins=20)[0]) * 1.1)
-
         plt.xlabel('Capital final')
         plt.ylabel('Frecuencia')
         plt.title('Distribución de capitales finales')
+        plt.grid(True)
         plt.show()
     else:
         print("No hay datos válidos para graficar el capital final.")
@@ -198,7 +195,6 @@ def graficar_resultados(resultados, n_tiradas, n_corridas, numero_elegido, estra
         capital_std = np.nanstd(padded_capital, axis=0)
         plt.figure(figsize=figsize)
         plt.plot(x_vals[:len(capital_promedio)], capital_promedio, label='Capital promedio', color='orange')
-        plt.ylim(0, np.nanmax(capital_promedio + capital_std) * 1.1)
         plt.fill_between(x_vals[:len(capital_promedio)], capital_promedio - capital_std, capital_promedio + capital_std, color='orange', alpha=0.2, label='±1 Desviación estándar')
         plt.axhline(y=capital_inicial if capital_tipo == 'f' else 0, color='blue', linestyle='--', label='Capital inicial')
         plt.title(f'Capital promedio ({n_corridas} corridas)')
@@ -220,12 +216,12 @@ def graficar_resultados(resultados, n_tiradas, n_corridas, numero_elegido, estra
         plt.grid(True)
         plt.show()
 
-# 7. Bancarrotas: barras + pastel
+    # 7. Bancarrotas: barras + pastel
     if capital_tipo == 'f':
-        bancarrotas   = resultados['bancarrotas']
-        no_banca      = n_corridas - bancarrotas
-        labels        = ['Bancarrota', 'No Bancarrota']
-        valores       = [bancarrotas, no_banca]
+        bancarrotas = resultados['bancarrotas']
+        no_banca = n_corridas - bancarrotas
+        labels = ['Bancarrota', 'No Bancarrota']
+        valores = [bancarrotas, no_banca]
 
         plt.figure(figsize=(12, 5))
 
@@ -238,10 +234,7 @@ def graficar_resultados(resultados, n_tiradas, n_corridas, numero_elegido, estra
 
         # 7b. Pastel
         plt.subplot(1, 2, 2)
-        plt.pie(valores,
-                labels=labels,
-                autopct='%1.1f%%',
-                startangle=90)
+        plt.pie(valores, labels=labels, autopct='%1.1f%%', startangle=90)
         plt.title('Porcentaje de bancarrotas')
 
         plt.tight_layout()
