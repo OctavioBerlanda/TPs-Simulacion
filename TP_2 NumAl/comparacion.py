@@ -6,6 +6,7 @@ from generadorGCL import (
     prueba_corridas,
     prueba_poker
 )
+import matplotlib.pyplot as plt
 
 # Configuración general
 CANTIDAD_NUMEROS = 10000
@@ -23,6 +24,20 @@ numeros_py = [random.random() for _ in range(CANTIDAD_NUMEROS)]
 # === Comparación mediante pruebas ===
 
 def ejecutar_pruebas(nombre, numeros):
+
+    # Gráfico de dispersión (x_i, x_{i+1})
+    x = numeros[:-1]
+    y = numeros[1:]
+
+    plt.figure(figsize=(6, 6))
+    plt.scatter(x, y, s=0.2, color='black')
+    plt.title(f"Dispersión de pares consecutivos - {nombre}")
+    plt.xlabel("$x_i$")
+    plt.ylabel("$x_{i+1}$")
+    plt.grid(True)
+    plt.tight_layout()
+    plt.show()
+
     print("\n" + "="*40)
     print(f"🧪 Resultados para {nombre}")
     print("="*40)

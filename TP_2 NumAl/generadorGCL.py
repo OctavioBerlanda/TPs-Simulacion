@@ -151,6 +151,19 @@ def prueba_poker(numeros, alpha=0.05):
 
 numeros = generador_gcl(a=1664525, c=1013904223, m=2**32, semilla=12345, cantidad=10000)
 
+# Gráfico de dispersión de (x_i, x_{i+1})
+x = numeros[:-1]
+y = numeros[1:]
+
+plt.figure(figsize=(6, 6))
+plt.scatter(x, y, s=0.2, color='black')  # Puntitos bien pequeños
+plt.title("Dispersión de pares consecutivos - GCL")
+plt.xlabel("$x_i$")
+plt.ylabel("$x_{i+1}$")
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+
 prueba_frecuencia(numeros, k=10)
 prueba_series(numeros, k=10)
 prueba_corridas(numeros)
